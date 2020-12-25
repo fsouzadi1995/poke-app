@@ -1,0 +1,55 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": ["google", "rxjs-tslint-rules"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "rxjs-no-async-subscribe": { "severity": "error" },
+        "rxjs-no-compat": { "severity": "error" },
+        "rxjs-no-connectable": { "severity": "error" },
+        "rxjs-no-create": { "severity": "error" },
+        "rxjs-no-explicit-generics": { "severity": "error" },
+        "rxjs-no-ignored-notifier": { "severity": "error" },
+        "rxjs-no-ignored-replay-buffer": { "severity": "error" },
+        "rxjs-no-ignored-observable": { "severity": "error" },
+        "rxjs-no-ignored-subscription": { "severity": "error" },
+        "rxjs-no-ignored-takewhile-value": { "severity": "error" },
+        "rxjs-no-implicit-any-catch": { "severity": "error" },
+        "rxjs-no-index": { "severity": "error" },
+        "rxjs-no-internal": { "severity": "error" },
+        "rxjs-no-nested-subscribe": { "severity": "error" },
+        "rxjs-no-sharereplay": {
+            "options": [
+                {
+                    "allowConfig": true
+                }
+            ],
+            "severity": "error"
+        },
+        "rxjs-no-subclass": { "severity": "error" },
+        "rxjs-no-subject-unsubscribe": { "severity": "error" },
+        "rxjs-no-subject-value": { "severity": "error" },
+        "rxjs-no-unbound-methods": { "severity": "error" },
+        "rxjs-no-unsafe-catch": { "severity": "error" },
+        "rxjs-no-unsafe-first": { "severity": "error" },
+        "rxjs-no-unsafe-scope": {
+            "options": [
+                {
+                    "allowSubscribe": false
+                }
+            ],
+            "severity": "error"
+        },
+        "rxjs-no-unsafe-subject-next": { "severity": "error" },
+        "rxjs-no-unsafe-switchmap": { "severity": "error" },
+        "rxjs-no-unsafe-takeuntil": { "severity": "error" },
+        "rxjs-throw-error": { "severity": "error" }
+    }
+}
