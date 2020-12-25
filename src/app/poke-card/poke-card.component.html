@@ -1,0 +1,16 @@
+<div>
+  <div>
+    <span>{{ pokemon.name | titlecase }}</span>
+  </div>
+  <div>
+    Types:
+    <ng-container *ngFor="let type of pokemon.types">
+      <div>
+        <span class="text-2xl">{{ type.emoji }}</span>
+        {{ type.name | titlecase }}
+      </div>
+    </ng-container>
+    <div><img src="{{ pokemon.sprite.front_default }}" /></div>
+    <span></span>
+  </div>
+</div>

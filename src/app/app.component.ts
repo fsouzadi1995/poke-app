@@ -81,7 +81,18 @@ export class AppComponent implements OnInit {
 
     this._apiSvc
       .getPokemon(term)
-      .pipe(finalize(() => (this.isLoading = false)))
+      .pipe(
+        map(
+          (pokemon: any) =>
+            new Pokemon(
+              term,
+              [...pokemon.types],
+              pokemon.height,
+              pokemon.sprites
+            )
+        ),
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe(
         (res: Pokemon) => {
           this.searchTerm = term;
