@@ -6,7 +6,7 @@ export class Pokemon {
 
   constructor(name: string, types: any[], height: number, sprite: Sprite) {
     this.name = name;
-    this.types = types.map((entry) => new PokeType(entry.type.name));
+    this.types = types.map((t) => new PokeType(t.type.name));
     this.height = height;
     this.sprite = sprite;
   }

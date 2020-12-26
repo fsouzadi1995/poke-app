@@ -35,14 +35,14 @@
   </ng-container>
 
   <div class="flex justify-evenly mt-20">
-    <!-- <ng-template *ngIf="isLoading"
-      ><div>Searching for pokemon..</div></ng-template
-    > -->
     <div *ngIf="pokemonResult$ | async as pokemon">
       <app-poke-card [pokemon]="pokemon"></app-poke-card>
     </div>
-
-    <!-- <div class="h-44 w-32 bg-gray-200 outline-blue">this is a nice pic</div>
-    <div>desc</div> -->
+    <div
+      class="text-2xl text-red-500"
+      *ngIf="!pokemonExists && searchTerm.length"
+    >
+      No results 😢
+    </div>
   </div>
 </div>

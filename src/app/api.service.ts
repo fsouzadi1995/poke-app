@@ -10,8 +10,8 @@ export class ApiService {
   constructor(private readonly _http: HttpClient) {}
 
   getPokemon(name: string): Observable<Pokemon> {
-    return this._http.get<Pokemon>(
-      `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`
-    );
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + name.toLowerCase();
+
+    return this._http.get<Pokemon>(url);
   }
 }

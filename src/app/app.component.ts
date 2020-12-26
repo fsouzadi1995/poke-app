@@ -1,20 +1,11 @@
-import { flatten } from '@angular/compiler';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
+import { Subject } from 'rxjs';
 import {
   filter,
   map,
   debounceTime,
   distinctUntilChanged,
-  tap,
-  switchMap,
   finalize,
 } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -27,7 +18,7 @@ import { Pokemon } from './shared/models/pokemon';
 })
 export class AppComponent implements OnInit {
   private readonly searchSubject$: Subject<string> = new Subject();
-  readonly pokemonResult$: Subject<Pokemon> = new Subject();
+  readonly pokemonResult$: Subject<Pokemon | null> = new Subject();
 
   examples: string[] = [
     'Dragonite',
@@ -57,27 +48,27 @@ export class AppComponent implements OnInit {
     this.pokemonResult$.next();
   }
 
-  handleInput(value: string) {
-    if (typeof value !== 'undefined' && value !== '')
-      this.searchSubject$.next(value);
+  handleInput(val: string) {
+    this.searchSubject$.next(val);
   }
 
   private setupSearchSubject(): void {
     this.searchSubject$
       .pipe(
-        filter((val: string) => !val.includes(' ')),
+        filter((val: string) => val !== '' && !val.includes(' ')),
         map((val: string) => val.trim()),
         debounceTime(350),
         distinctUntilChanged()
       )
       .subscribe((term: string) => {
+        this.pokemonResult$.next(null);
+        this.searchTerm = term;
         this.search(term);
       });
   }
 
   private search(term: string) {
     this.isLoading = true;
-    this.searchTerm = term;
 
     this._apiSvc
       .getPokemon(term)
@@ -101,10 +92,7 @@ export class AppComponent implements OnInit {
 
           this.pokemonResult$.next(res);
         },
-        (error) => {
-          this.pokemonExists = false;
-          this.pokemonResult$.next();
-        }
+        (error) => (this.pokemonExists = false)
       );
   }
 }
