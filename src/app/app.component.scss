@@ -6,11 +6,15 @@ input:focus-within,
 input:focus,
 input:active {
   animation: 0.2s ease-in-out border-in;
-  border: 2px solid rgb(123, 162, 233);
+  border: 2px solid rgba(76, 29, 149, var(--tw-text-opacity));
 }
 
 h1 div {
   animation: 1s ease-in-out 1s 1 wave-animation;
+}
+
+#outer-input-bg {
+  background-color: #ff9d72;
 }
 
 @keyframes border-in {
@@ -19,7 +23,7 @@ h1 div {
   }
 
   100% {
-    border: 2px solid rgb(123, 162, 233);
+    border: 2px solid rgba(76, 29, 149, var(--tw-text-opacity));
   }
 }
 @keyframes wave-animation {
