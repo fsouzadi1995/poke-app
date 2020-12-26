@@ -86,10 +86,8 @@ export class AppComponent implements OnInit {
       )
       .subscribe(
         (res: Pokemon) => {
-          this.searchTerm = term;
-          this.pokemonExists = true;
           console.log(res);
-
+          this.pokemonExists = true;
           this.pokemonResult$.next(res);
         },
         (error) => (this.pokemonExists = false)
