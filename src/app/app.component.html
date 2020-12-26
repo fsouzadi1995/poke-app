@@ -30,13 +30,13 @@
     </div>
   </div>
 
-  <ng-container *ngIf="searchTerm.length">
+  <!-- <ng-container *ngIf="searchTerm.length">
     <div class="flex justify-center mt-5">
       <span>Showing results for: "{{ searchTerm }}"</span>
     </div>
-  </ng-container>
+  </ng-container> -->
 
-  <div class="flex justify-evenly mt-20">
+  <div class="flex justify-evenly mt-10">
     <div *ngIf="pokemonResult$ | async as pokemon">
       <app-poke-card [pokemon]="pokemon"></app-poke-card>
     </div>

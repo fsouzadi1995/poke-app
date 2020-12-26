@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.setupSearchSubject();
     this.pokemonResult$.next();
+    this.handleInput('lapras');
   }
 
   handleInput(val: string) {
