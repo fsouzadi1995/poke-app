@@ -3,6 +3,10 @@
 @import "tailwindcss/utilities";
 @import "animations.scss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   height: 100%;
 }
