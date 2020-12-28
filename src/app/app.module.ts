@@ -1,17 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 import { PokeCardComponent } from './poke-card/poke-card.component';
 
 @NgModule({
-  declarations: [	AppComponent,
-      PokeCardComponent
-   ],
+  declarations: [AppComponent, PokeCardComponent],
   imports: [
     ReactiveFormsModule,
     FormsModule,
@@ -19,8 +19,10 @@ import { PokeCardComponent } from './poke-card/poke-card.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxSpinnerModule,
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

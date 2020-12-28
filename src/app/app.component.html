@@ -1,15 +1,20 @@
 <div class="md:flex sm:block">
   <div class="md:w-1/2 sm:w-screen h-screen text-center pt-16 bg-pink-200">
     <div class="justify-center cursor-default px-5">
-      <h1 class="text-purple-900 text-4xl font-mono">
+      <h1 class="text-purple-900 text-4xl sm:leading-relaxed leading-relaxed">
         Welcome to my PokeApp
-        <div class="inline-flex"><span>👋</span></div>
+        <div class="inline text-4xl">
+          <div>
+            <span>👾</span>
+          </div>
+        </div>
       </h1>
     </div>
-    <div class="xl:mt-36 mt-28">
+    <div class="sm:mt-16 lg:mt-20 xl:mt-36 mt-28">
       <div class="text-center mb-5">
-        <h4 class="text-gray-800 md:text-2xl text-lg font-mono">
-          Search for a pokemon 🔎
+        <h4 class="text-gray-800 md:text-2xl lg:text-xl text-lg">
+          Search for a pokemon
+          <div class="inline-flex text-3xl"><span>🔎</span></div>
         </h4>
       </div>
       <div class="flex justify-center">
@@ -18,7 +23,7 @@
         >
           <input
             #search
-            class="w-11/12 py-2 px-5 text-center text-gray-600 rounded-full font-mono"
+            class="w-11/12 py-2 px-5 text-center text-gray-600 rounded-full"
             type="text"
             placeholder="ex: {{ randomExample }}"
             (keyup)="handleInput(search.value)"
@@ -29,13 +34,34 @@
     </div>
   </div>
 
-  <div class="sm:w-screen md:w-1/2 h-screen flex justify-center bg-gray-300">
+  <div class="sm:w-screen md:w-1/2 h-screen flex justify-center bg-blue-200">
+    <div class="relative">
+      <ngx-spinner
+        *ngIf="isLoading"
+        bdColor="rgba(255,255,255,0.8)"
+        size="medium"
+        color="rgb(255 57 170 / 68%)"
+        type="ball-8bits"
+        [fullScreen]="false"
+        ><div class="mt-16">
+          <p class="text-purple-900 text-center">Loading . o O</p>
+        </div></ngx-spinner
+      >
+    </div>
+
     <div class="my-auto">
       <div *ngIf="pokemonResult$ | async as pokemon">
         <app-poke-card [pokemon]="pokemon"></app-poke-card>
       </div>
-      <div class="text-2xl text-red-500" *ngIf="!pokemonExists && !isLoading">
-        No results 😢
+      <div
+        class="text-2xl text-red-500 text-center"
+        *ngIf="!pokemonExists && !isLoading"
+      >
+        No results
+        <br />
+        <div class="mt-5">
+          <span>:(</span>
+        </div>
       </div>
     </div>
   </div>

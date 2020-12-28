@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-import { of, Subject, throwError } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   filter,
   map,
@@ -20,10 +20,11 @@ import { Pokemon } from './shared/models/pokemon';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  private readonly searchSubject$: Subject<string> = new Subject<string>();
+  private readonly searchSubject$: Subject<string> = new Subject();
   readonly pokemonResult$: Subject<Pokemon | null> = new Subject();
-
-  searchForm = new FormControl('');
+  randomExample: string = '';
+  isLoading = false;
+  pokemonExists = false;
 
   examples: string[] = [
     'Dragonite',
@@ -38,19 +39,17 @@ export class AppComponent implements OnInit {
     'Rhydon',
   ];
 
-  randomExample: string = '';
-  searchTerm: string = '';
-  isLoading = false;
-
-  pokemonExists = false;
-
-  constructor(private readonly _apiSvc: ApiService) {
+  constructor(
+    private readonly _apiSvc: ApiService,
+    private readonly _spinnerSvc: NgxSpinnerService
+  ) {
     this.randomExample = this.examples[Math.floor(Math.random() * 10)];
   }
 
   ngOnInit() {
     this.pokemonResult$.next();
     this.setupSearchSubject();
+    this._spinnerSvc.show();
     // this.handleInput('lapras');
   }
 
@@ -61,10 +60,12 @@ export class AppComponent implements OnInit {
   private setupSearchSubject(): void {
     this.searchSubject$
       .pipe(
-        filter((val: string) => val !== '' && !val.includes(' ')),
+        filter((val: string) => val !== ''),
         debounceTime(400),
         distinctUntilChanged(),
         switchMap((term: string) => {
+          this.isLoading = true;
+          this.pokemonResult$.next();
           return this._apiSvc.getPokemon(term).pipe(
             map(
               (pokemon: any) =>
