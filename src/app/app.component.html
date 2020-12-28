@@ -34,10 +34,7 @@
       <div *ngIf="pokemonResult$ | async as pokemon">
         <app-poke-card [pokemon]="pokemon"></app-poke-card>
       </div>
-      <div
-        class="text-2xl text-red-500"
-        *ngIf="!pokemonExists && searchTerm.length"
-      >
+      <div class="text-2xl text-red-500" *ngIf="!pokemonExists && !isLoading">
         No results 😢
       </div>
     </div>

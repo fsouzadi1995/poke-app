@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Pokemon } from './shared/models/pokemon';
+
+const BASE_ENDPOINT = 'https://pokeapi.co/api/v2/pokemon';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +13,6 @@ export class ApiService {
   constructor(private readonly _http: HttpClient) {}
 
   getPokemon(name: string): Observable<Pokemon> {
-    const url = 'https://pokeapi.co/api/v2/pokemon/' + name.toLowerCase();
-
-    return this._http.get<Pokemon>(url);
+    return this._http.get<Pokemon>(`${BASE_ENDPOINT}/${name.toLowerCase()}`);
   }
 }
