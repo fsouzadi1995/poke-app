@@ -1,4 +1,4 @@
-# RxJS Practice
+# PokeApp
 
 **How to run**
 
