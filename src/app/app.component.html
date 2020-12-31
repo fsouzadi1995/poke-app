@@ -1,16 +1,14 @@
-<div class="md:flex sm:block">
-  <div class="md:w-1/2 sm:w-screen h-screen text-center pt-16 bg-pink-200">
+<div class="sm:block md:flex">
+  <div class="sm:w-screen md:w-1/2 h-screen text-center py-16 bg-pink-200">
     <div class="justify-center cursor-default px-5">
-      <h1 class="text-purple-900 text-4xl sm:leading-relaxed leading-relaxed">
+      <h1 class="text-purple-900 text-4xl leading-relaxed">
         Welcome to my PokeApp
-        <div class="inline text-4xl">
-          <div>
-            <span>👾</span>
-          </div>
+        <div class="text-4xl">
+          <span>👾</span>
         </div>
       </h1>
     </div>
-    <div class="sm:mt-16 lg:mt-20 xl:mt-36 mt-28">
+    <div class="my-20 sm:px-0 px-2">
       <div class="text-center mb-5">
         <h4 class="text-gray-800 md:text-2xl lg:text-xl text-lg">
           Search for a pokemon
@@ -50,19 +48,21 @@
     </div>
 
     <div class="my-auto">
-      <div *ngIf="pokemonResult$ | async as pokemon">
-        <app-poke-card [pokemon]="pokemon"></app-poke-card>
-      </div>
-      <div
-        class="text-2xl text-red-500 text-center"
-        *ngIf="!pokemonExists && !isLoading"
-      >
-        No results
-        <br />
-        <div class="mt-5">
-          <span>:(</span>
+      <ng-container *ngIf="pokemonResult$ | async as result">
+        <div>
+          <app-poke-card [pokemon]="result"></app-poke-card>
         </div>
-      </div>
+      </ng-container>
+
+      <ng-container *ngIf="!pokemonExists && !isLoading">
+        <div class="text-2xl text-red-500 text-center">
+          No results
+          <br />
+          <div class="mt-5">
+            <span class="text-4xl">🔭</span>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

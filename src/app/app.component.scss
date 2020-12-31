@@ -1,12 +1,12 @@
 input {
-  border: 2px solid rgba(191, 219, 254, var(--tw-bg-opacity));
+  border: 3px solid rgba(191, 219, 254, var(--tw-bg-opacity));
 }
 
 input:focus-within,
 input:focus,
 input:active {
   animation: 0.2s ease-in-out border-in;
-  border: 2px solid rgba(76, 29, 149, var(--tw-text-opacity));
+  border: 3px solid rgba(76, 29, 149, var(--tw-text-opacity));
 }
 
 h1 div {
@@ -19,11 +19,11 @@ h1 div {
 
 @keyframes border-in {
   0% {
-    border: 2px solid rgba(191, 219, 254, var(--tw-bg-opacity));
+    border: 3px solid rgba(191, 219, 254, var(--tw-bg-opacity));
   }
 
   100% {
-    border: 2px solid rgba(76, 29, 149, var(--tw-text-opacity));
+    border: 3px solid rgba(76, 29, 149, var(--tw-text-opacity));
   }
 }
 @keyframes wave-animation {
