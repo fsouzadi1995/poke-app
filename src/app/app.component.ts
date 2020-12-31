@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     this.pokemonResult$.next();
     this.setupSearchSubject();
     this._spinnerSvc.show();
-    // this.handleInput('lapras');
+    // this.handleInput('Charizard');
   }
 
   handleInput(val: string) {
@@ -68,13 +68,8 @@ export class AppComponent implements OnInit {
           this.pokemonResult$.next();
           return this._apiSvc.getPokemon(term).pipe(
             map(
-              (pokemon: any) =>
-                new Pokemon(
-                  term,
-                  [...pokemon.types],
-                  pokemon.height,
-                  pokemon.sprites
-                )
+              (res: any) =>
+                new Pokemon(res.name, [...res.types], res.height, res.sprites)
             ),
             /**
             Developer Note: we do this so that we keep the subscription on the SearchSubject
