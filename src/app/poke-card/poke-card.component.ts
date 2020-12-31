@@ -12,8 +12,8 @@ export class PokeCardComponent implements OnInit {
 
   readonly tooltipOptions: TooltipOptions = {
     'show-delay': 150,
-    'tooltip-class': 'text-sm',
     'hide-delay': 150,
+    'tooltip-class': 'text-xs',
     placement: 'top',
   };
 
