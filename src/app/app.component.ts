@@ -69,13 +69,7 @@ export class AppComponent implements OnInit {
           return this._apiSvc.getPokemon(term).pipe(
             map(
               (res: any) =>
-                new Pokemon(
-                  res.id,
-                  res.name,
-                  [...res.types],
-                  res.height,
-                  res.sprites
-                )
+                new Pokemon(res.id, res.name, [...res.types], res.sprites)
             ),
             /**
             Developer Note: we do this so that we keep the subscription on the SearchSubject

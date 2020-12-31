@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~11.0.4",
     "@angular/router": "~11.0.4",
     "@ngneat/tailwind": "^3.0.6",
+    "@types/karma": "^5.0.1",
     "ng2-tooltip-directive": "^2.9.22",
     "ngx-spinner": "^10.0.1",
     "rxjs": "~6.6.0",

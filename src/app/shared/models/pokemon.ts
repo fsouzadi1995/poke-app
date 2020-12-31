@@ -2,20 +2,12 @@ export class Pokemon {
   id: number;
   name: string;
   types: PokeType[];
-  height: number;
   sprite: Sprite;
 
-  constructor(
-    id: number,
-    name: string,
-    types: any[],
-    height: number,
-    sprite: Sprite
-  ) {
+  constructor(id: number, name: string, types: any[], sprite: Sprite) {
     this.id = id;
     this.name = name;
     this.types = types.map((t) => new PokeType(t.type.name));
-    this.height = height;
     this.sprite = sprite;
   }
 }
