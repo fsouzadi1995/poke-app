@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "rxjs-practice": {
+    "poke-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,19 +20,14 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/rxjs-practice",
+            "outputPath": "dist/poke-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "webpack.config.js"
@@ -71,18 +66,18 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "rxjs-practice:build"
+            "browserTarget": "poke-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "rxjs-practice:build:production"
+              "browserTarget": "poke-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "rxjs-practice:build"
+            "browserTarget": "poke-app:build"
           }
         },
         "test": {
@@ -92,13 +87,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "webpack.config.js"
@@ -113,20 +103,18 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "rxjs-practice:serve"
+            "devServerTarget": "poke-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "rxjs-practice:serve:production"
+              "devServerTarget": "poke-app:serve:production"
             }
           }
         },
@@ -137,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "rxjs-practice"
+  "defaultProject": "poke-app"
 }
