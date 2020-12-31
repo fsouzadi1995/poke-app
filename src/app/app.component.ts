@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     this.pokemonResult$.next();
     this.setupSearchSubject();
     this._spinnerSvc.show();
-    this.handleInput('Charizard');
+    // this.handleInput('Charizard');
   }
 
   handleInput(val: string) {
