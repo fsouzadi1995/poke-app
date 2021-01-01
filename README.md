@@ -4,4 +4,4 @@ Angular project that lets you search for a pokemon and show some information abo
 
 ## **🚀 Quick start** 
 
-#### Click [here](https://fsouzadi1995.github.io/poke-app/ "PokeApp") and search for a pokemon!
+#### Click [here](https://fsouzadi1995.github.io/poke-app/ "PokeApp") and search away!
