@@ -1,6 +1,6 @@
 # 👾 PokeApp
 
-Small application to search for a pokemon and get some information about it.
+Angular project that lets you search for a pokemon and show some information about it.
 
 ## **🚀 Quick start** 
 
