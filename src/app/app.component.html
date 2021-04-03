@@ -27,8 +27,9 @@
             #search
             class="w-11/12 py-2 px-5 text-center text-gray-600 rounded-full"
             type="text"
+            autocomplete="off"
             placeholder="ex: {{ randomExample }}"
-            (keyup)="handleInput(search.value)"
+            [formControl]="nameCtrl"
           />
           <br />
         </div>
@@ -36,36 +37,37 @@
     </div>
   </div>
   <div class="sm:w-screen md:w-1/2 h-screen flex justify-center bg-blue-200">
-    <div class="relative">
-      <ngx-spinner
-        *ngIf="isLoading"
-        bdColor="rgba(255,255,255,0.8)"
-        size="medium"
-        color="rgb(255 57 170 / 68%)"
-        type="ball-8bits"
-        [fullScreen]="false"
-        ><div class="mt-16">
-          <p class="text-purple-900 text-center">Loading . o O</p>
-        </div></ngx-spinner
-      >
-    </div>
-
     <div class="my-auto">
-      <ng-container *ngIf="pokemonResult$ | async as result">
-        <div>
-          <app-poke-card [pokemon]="result"></app-poke-card>
-        </div>
+      <ng-container *ngIf="pokemon$ | async as pokemon; else notFound">
+        <app-poke-card [pokemon]="pokemon"></app-poke-card>
       </ng-container>
 
-      <ng-container *ngIf="!pokemonExists && !isLoading">
-        <div class="text-2xl text-red-700 text-center">
-          No results
-          <br />
-          <div class="mt-5">
-            <span class="text-4xl">🔭</span>
+      <ng-template #notFound>
+        <div *ngIf="!isLoading; else showLoading">
+          <div class="text-2xl text-red-700 text-center" *ngIf="!isLoading">
+            No results
+            <br />
+            <div class="mt-5">
+              <span class="text-4xl">🔭</span>
+            </div>
           </div>
         </div>
-      </ng-container>
+
+        <ng-template #showLoading>
+          <div class="relative">
+            <ngx-spinner
+              bdColor="rgba(255,255,255,0.8)"
+              size="medium"
+              color="rgb(255 57 170 / 68%)"
+              type="ball-8bits"
+              [fullScreen]="false"
+              ><div class="mt-56">
+                <p class="text-purple-900 text-center">Loading . o O</p>
+              </div></ngx-spinner
+            >
+          </div>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
 </div>

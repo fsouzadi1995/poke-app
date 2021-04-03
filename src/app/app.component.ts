@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import {
   filter,
@@ -10,23 +15,29 @@ import {
   finalize,
   switchMap,
   catchError,
+  tap,
 } from 'rxjs/operators';
 import { ApiService } from './api.service';
-import { Pokemon } from './shared/models/pokemon';
+import { Pokemon } from './models/pokemon';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
-  private readonly searchSubject$: Subject<string> = new Subject();
-  readonly pokemonResult$: Subject<Pokemon | null> = new Subject();
-  randomExample: string = '';
-  isLoading = false;
-  pokemonExists = false;
+export class AppComponent implements OnInit, OnDestroy {
+  public readonly pokemon$: Subject<Pokemon | null> = new Subject();
+  public randomExample: string;
+  public isLoading = false;
 
-  examples: string[] = [
+  public readonly nameCtrl: FormControl = new FormControl(
+    '',
+    Validators.required
+  );
+
+  private readonly examples: string[] = [
     'Dragonite',
     'Lapras',
     'Pikachu',
@@ -39,56 +50,52 @@ export class AppComponent implements OnInit {
     'Rhydon',
   ];
 
+  private readonly onDestroy$: Subject<void> = new Subject();
+
   constructor(
-    private readonly _apiSvc: ApiService,
-    private readonly _spinnerSvc: NgxSpinnerService
+    private readonly cd: ChangeDetectorRef,
+    private readonly apiSvc: ApiService,
+    private readonly spinnerSvc: NgxSpinnerService
   ) {
     this.randomExample = this.examples[Math.floor(Math.random() * 10)];
   }
 
-  ngOnInit() {
-    this.pokemonResult$.next();
+  public ngOnInit(): void {
     this.setupSearchSubject();
-    this._spinnerSvc.show();
-    // this.handleInput('Charizard');
+    this.spinnerSvc.show();
+    this.pokemon$.next(null);
   }
 
-  handleInput(val: string) {
-    this.searchSubject$.next(val);
+  public ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   private setupSearchSubject(): void {
-    this.searchSubject$
+    this.nameCtrl.valueChanges
       .pipe(
         filter((val: string) => val !== ''),
         debounceTime(400),
         distinctUntilChanged(),
+        tap(() => (this.isLoading = true)),
+        tap(() => this.pokemon$.next(null)),
+        tap(() => this.cd.detectChanges()),
         switchMap((term: string) => {
-          this.isLoading = true;
-          this.pokemonResult$.next();
-          return this._apiSvc.getPokemon(term).pipe(
+          return this.apiSvc.getPokemon(term).pipe(
             map(
               (res: any) =>
                 new Pokemon(res.id, res.name, [...res.types], res.sprites)
             ),
-            /**
-            Developer Note: we do this so that we keep the subscription on the SearchSubject
-                            if we were to throw an error here the subscription would end
-            **/
-            catchError(async (err) => null),
-            finalize(() => (this.isLoading = false))
+            tap((pokemon) => this.pokemon$.next(pokemon)),
+            // CatchError so that it doesn't complete the obs
+            catchError(async () => null),
+            finalize(() => {
+              this.isLoading = false;
+              this.cd.detectChanges();
+            })
           );
         })
       )
-      .subscribe((res: Pokemon | null) => {
-        if (res) {
-          this.pokemonExists = true;
-          this.pokemonResult$.next(res);
-        } else {
-          this.pokemonExists = false;
-          this.pokemonResult$.next();
-        }
-      }),
-      (error: any) => {};
+      .subscribe();
   }
 }

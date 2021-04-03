@@ -1,22 +1,17 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { Observable, of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 import { ApiService } from './api.service';
-import { Pokemon, PokeType } from './shared/models/pokemon';
+import { Pokemon } from './models/pokemon';
 import { map } from 'rxjs/operators';
-
 describe('ApiService: ', () => {
   let apiService: ApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [],
     });
 
     apiService = TestBed.inject(ApiService);
@@ -52,15 +47,11 @@ describe('ApiService: ', () => {
 
     spyOn(apiService, 'getPokemon').and.returnValue(of(response));
 
-    const req = apiService.getPokemon('6');
-
-    req
+    apiService
+      .getPokemon('6')
       .pipe(map((res: any) => new Pokemon(res.id, res.name, [], res.sprites)))
       .subscribe((result: Pokemon) => {
-        console.log(result);
-
         expect(result).toBeInstanceOf(Pokemon);
-        // expect(result).toEqual(response);
       });
   });
 });

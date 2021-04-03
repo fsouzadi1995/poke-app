@@ -45,3 +45,11 @@ debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+# Extras
+.prettierrc
+.prettierignore
+/environments
+.editorconfig
+.browserslistrc
