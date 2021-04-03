@@ -8,7 +8,7 @@ import { TooltipOptions } from 'ng2-tooltip-directive';
   styleUrls: ['./poke-card.component.scss'],
 })
 export class PokeCardComponent {
-  @Input() public readonly pokemon!: Pokemon;
+  @Input() public pokemon!: Pokemon;
 
   public readonly tooltipOptions: TooltipOptions = {
     'show-delay': 150,
